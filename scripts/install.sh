@@ -21,11 +21,6 @@ kubectl -n tekton-pipelines wait --for=condition=Ready --timeout=1200s -l app=te
 # 5. Label
 kubectl label --overwrite ns tekton-pipelines pod-security.kubernetes.io/enforce=privileged
 
-# 6. Enable Web UI
-kubectl apply --filename https://storage.googleapis.com/tekton-releases/dashboard/latest/release-full.yaml
-kubectl -n tekton-pipelines wait --for=condition=Ready --timeout=30s -l app=tekton-dashboard pods
-kubectl --namespace tekton-pipelines port-forward svc/tekton-dashboard 9097:9097 &
-
 # 7. Install Tekton Triggers
 kubectl apply --filename https://storage.googleapis.com/tekton-releases/triggers/latest/release.yaml
 kubectl apply --filename https://storage.googleapis.com/tekton-releases/triggers/latest/interceptors.yaml
